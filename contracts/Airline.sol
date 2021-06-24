@@ -14,7 +14,7 @@ contract Airline {
     uint price;
   }
 
-  uint etherPoint = 0.5 ether;
+  uint etherPoint = 0.005 ether;
 
   Flight[] public flights;
 

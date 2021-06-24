@@ -50,4 +50,21 @@ contract("Airline", (accounts) => {
       let newAirlineBalance = new BigNumber(await instance.getAirlineBalance()) 
       assert(price.plus(price2).isEqualTo(newAirlineBalance))
       })
+    
+      it('allow users redeem loyalty points', async () => {
+        
+      let flight = await instance.flights(1)
+      let price = new BigNumber(flight[1]) 
+      
+      await instance.buyFlight(1, {from:accounts[3], value: price})
+      
+      let balance = new BigNumber(await web3.eth.getBalance(accounts[3]))
+      await instance.redeemLoyaltyPoints({from:accounts[3]})
+      let newBalance = new BigNumber(await web3.eth.getBalance(accounts[3]))
+      console.log(balance, newBalance);
+      let customer = await instance.customers(accounts[3])
+      let loyalty = customer[0]
+      assert(loyalty, 0)
+        assert(newBalance > balance)
+      })
 })
