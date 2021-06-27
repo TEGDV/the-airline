@@ -7,6 +7,7 @@ const App = () => {
   const [web3, setWeb3] = useState(undefined)
   const [account, setAccount] = useState(undefined)
   const [contract, setContract] = useState([])
+  const [balance, setBalance] = useState(undefined)
 
   useEffect(() =>{
     const init = async () => {
@@ -21,9 +22,11 @@ const App = () => {
         const networkId = await web3.eth.net.getId()
         const deployedNetwork = AirlineContract.networks[networkId]
         const instance = new web3.eth.Contract(AirlineContract.abi, deployedNetwork && deployedNetwork.address)
+        const userBalance = await web3.eth.getBalance(account)
         setWeb3(web3)
         setAccount(account)
         setContract(instance)
+        setBalance(userBalance)
       } catch (e) {
         alert('Pinches beaners estan todos joudiros')
         console.log(e)
@@ -39,7 +42,10 @@ const App = () => {
 
     <div className="row">
       <div className="col-sm">
-        <Panel title="Balance" />
+        <Panel title="Balance">
+          {web3.utils.fromWei(balance, 'ether')}
+        </Panel>
+
       </div>
       <div className="col-sm">
         <Panel title="Loyalty points - refundable ether" />
