@@ -39,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "@truffle/hdwallet-provider": "^1.4.1",
     "web3": "^1.3.6"
   }
 }
