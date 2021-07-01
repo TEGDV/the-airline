@@ -22,7 +22,7 @@ contract Airline {
   mapping(address => Flight[]) public customerFlights;
   mapping(address => uint) public customertotalFlights;
 
-  event FlightPurchased(address indexed custumer, uint price);
+  event FlightPurchased(address indexed customer, uint price);
 
   constructor(){
     owner = msg.sender;
