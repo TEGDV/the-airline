@@ -1,6 +1,7 @@
+require('dotenv').config({ path: './.env.local' })
 const HDWalletProvider = require('@truffle/hdwallet-provider')
-const mnemonic = 'ten diesel combine spirit where six robust vicious pave gift budget bubble'
-const rinkebyEndPoint = 'https://rinkeby.infura.io/v3/6af9077f8a2048acadbef342a747f5b1'
+const mnemonic = process.env.MNEMONIC
+const rinkebyEndPoint = process.env.INFURA_ENDPOINT
 module.exports = {
   contracts_build_directory: './src/abis/',
   networks: {
@@ -13,6 +14,7 @@ module.exports = {
     rinkeby: {
       provider: () => new HDWalletProvider(mnemonic, rinkebyEndPoint),
       network_id: 4,
+      addressIndex: 3,
     }
   },
   compilers: {
